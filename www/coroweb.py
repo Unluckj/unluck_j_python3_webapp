@@ -58,7 +58,7 @@ def has_named_kw_args(fn):
             return True
 
 def has_var_kw_arg(fn):
-    params = inspect.signature(fn).Parameter
+    params = inspect.signature(fn).parameters
     for name, param in params.items():
         if param.kind == inspect.Parameter.VAR_KEYWORD:
             return True
@@ -121,7 +121,7 @@ class RequestHandler(object):
                         copy[name] = kw[name]
                 kw = copy
 
-            for k,v in requet.match_info.items():
+            for k,v in request.match_info.items():
                 if k in kw:
                     logging.warn('Duplicate arg name in named arg and kw arg: %s' % k)
                 kw[k] = v
